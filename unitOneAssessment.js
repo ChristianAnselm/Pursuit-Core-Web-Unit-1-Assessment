@@ -4,23 +4,40 @@ let assert = require('assert')
 
 // Write a function called isOdd that returns whether or not a number is odd.
 // If something that is not a number is passed in, return false.
-
+function isOdd(num) {
+  if (num % 2 === 1) {
+    return true
+  } else if (num % 2 === 0) {
+    return false
+  } else if (typeof num !== "number") {
+    return false
+  } else if (!num) {
+    return false
+  }
+}
 
 // Uncomment out the next line to test your solution
-// runQ1Tests()
+runQ1Tests()
 
 
 // Question Two:
 
 // Write a function called numberOfDigits that returns how many digits are in a given number
 
+function numberOfDigits(x) {
+  return x.toString().length
+}
+
 // Uncomment out the next line to test your solution
-// runQ2Tests()
+runQ2Tests()
 
 // Question Three:
 
 // Write a function called disemvowel that removes all of the vowels from a string.
 // Treat y as a consonant, not a vowel
+
+// function disemvowel(str){
+// }
 
 // Uncomment out the next line to test your solution
 // runQ3Tests()
@@ -28,8 +45,14 @@ let assert = require('assert')
 // Question Four:
 // Write a function called secondSmallest that returns the second smallest number in an array
 
+function secondSmallest(arr) {
+  arr.sort()
+  return arr[1]
+}
+
+
 // Uncomment out the next line to test your solution
-// runQ4Tests()
+runQ4Tests()
 
 // Question Five:
 // Write a function called getLocations that takes in an array of objects that look like the array below,
@@ -41,6 +64,10 @@ let assert = require('assert')
 
 // Sample output:
 // ["Algeria", "Belize", "China", "Denmark"]
+function getLocations(arr) {
+  let locations = []
+  locations.push(Object.values(location))
+}
 
 // Uncomment out the next line to test your solution
 // runQ5Tests()
@@ -51,8 +78,18 @@ let assert = require('assert')
 // Write a function called onlyOddStrings that takes in an array of strings as input and returns an array that only includes strings with an odd number of characters
 // Your function should use a higher-ordered function (e.g map, filter, reduce, every, sort) in its implementation
 
+function onlyOddStrings(arr) {
+  let odds = []
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].length % 2 === 1) {
+      odds.push(arr[i])
+    }
+  }
+  return odds
+}
+
 // Uncomment out the next line to test your solution
-// runQ6Tests()
+runQ6Tests()
 
 
 // Question Seven:
@@ -61,6 +98,16 @@ let assert = require('assert')
 // Make a class called Day
 // Give it two properties set by the constructor named temperature and weather
 // Give it a method named getDescription that returns a string in the format described below
+class Day {
+  constructor(temp, weather) {
+    this.temp = temp;
+    this.weather = weather
+  }
+  getDescription() {
+    console.log("It is " + this.temp + " degrees and " + this.weather);
+
+  }
+}
 
 // Example
 // let myDay = Day(80, "sunny")
@@ -71,7 +118,7 @@ let assert = require('assert')
 // The output should be in the same order as the input
 
 // Uncomment out the next line to test your solution
-// runQ7Tests()
+runQ7Tests()
 
 
 
@@ -94,7 +141,7 @@ function runTests(questionNum, testCases, testCallback) {
     }
     console.log(`All Question ${questionNum} tests passed!\n`)
   }
-  catch(error) {
+  catch (error) {
     if (error.expected === undefined) {
       console.log("An unexpected error occurred running the test")
       console.log(error)
@@ -106,7 +153,7 @@ function runTests(questionNum, testCases, testCallback) {
 
 function runQ1Tests() {
   let testCases = [
-    new TestCase(1,true),
+    new TestCase(1, true),
     new TestCase(3, true),
     new TestCase(5, true),
     new TestCase(7, true),
@@ -122,13 +169,13 @@ function runQ1Tests() {
 }
 
 function runQ2Tests() {
-    let testCases = [
-      new TestCase(4,1),
-      new TestCase(14,2),
-      new TestCase(8473,4),
-      new TestCase(73746, 5)
-    ]
-    runTests("Two", testCases, numberOfDigits)
+  let testCases = [
+    new TestCase(4, 1),
+    new TestCase(14, 2),
+    new TestCase(8473, 4),
+    new TestCase(73746, 5)
+  ]
+  runTests("Two", testCases, numberOfDigits)
 }
 
 function runQ3Tests() {
@@ -144,10 +191,10 @@ function runQ3Tests() {
 
 function runQ4Tests() {
   let testCases = [
-    new TestCase([5,1,4,2,5,6], 2),
-    new TestCase([1,10,7,90,5,4], 4),
-    new TestCase([2,1,4,90,5,6], 2),
-    new TestCase([1,3,4,90,5,6], 3)
+    new TestCase([5, 1, 4, 2, 5, 6], 2),
+    new TestCase([1, 10, 7, 90, 5, 4], 4),
+    new TestCase([2, 1, 4, 90, 5, 6], 2),
+    new TestCase([1, 3, 4, 90, 5, 6], 3)
   ]
   runTests("Four", testCases, secondSmallest)
 }
@@ -156,14 +203,14 @@ function runQ5Tests() {
   let testCases = [
     new TestCase(
       [
-        {location: "Algeria", population: 41},
-        {location: "Belize", population: 0.4},
-        {location: "China", population: 1386},
-        {location: "Denmark", population: 6}
+        { location: "Algeria", population: 41 },
+        { location: "Belize", population: 0.4 },
+        { location: "China", population: 1386 },
+        { location: "Denmark", population: 6 }
       ],
       ["Algeria", "Belize", "China", "Denmark"]
     ),
-    new TestCase([{location: "England", population: 56}], ["England"]),
+    new TestCase([{ location: "England", population: 56 }], ["England"]),
     new TestCase([], [])
   ]
   runTests("Five", testCases, getLocations)
@@ -187,9 +234,9 @@ function runQ6Tests() {
       ["one", "two", "three", "four"],
       ["one", "two", "three"]
     ),
-    new TestCase([],[]),
-    new TestCase(["a"],["a"]),
-    new TestCase(["to"],[])
+    new TestCase([], []),
+    new TestCase(["a"], ["a"]),
+    new TestCase(["to"], [])
   ]
   runTests("Six", testCases, onlyOddStrings)
 }
